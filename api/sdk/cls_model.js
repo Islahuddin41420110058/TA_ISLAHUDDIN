@@ -1,18 +1,18 @@
 const tf = require('@tensorflow/tfjs-node');
 
-function normalized(data){ // i & r
-    i = (data[0] - 12.585) / 6.813882
-    r = (data[1] - 51.4795) / 29.151289
-    v = (data[2] - 650.4795) / 552.6351
-    p = (data[3] - 10620.56) / 12152.78
-    return [i, r, v, p]
+function normalized(data){ // s & k
+    s = (data[0] - 29.5) / 4.609959082
+    k = (data[1] - 422.2222222) / 195.11212
+    o = (data[2] - 0.55771725) / 0.496677679
+    
+    return [s, k, o]
 }
 
 const argFact = (compareFn) => (array) => array.map((el, idx) => [el, idx]). reduce(compareFn)[1]
 const argMax = argFact((min, el) => (el[0] > min[0] ? el : min ))
 
 function ArgMax(res){
-  label = "NORMAL"
+     label = "NORMAL"
     cls_data = []
     for(i=0; i<res.length; i++){
         cls_data[i] = res[i]
@@ -20,15 +20,15 @@ function ArgMax(res){
     console.log(cls_data, argMax(cls_data));
     
   if(argMax(cls_data) == 1){
-      label = "OVER VOLTAGE"
+      label = "POWER ON"
   }if(argMax(cls_data) == 0){
-      label = "DROP VOLTAGE"
+      label = "POWER OFF"
   }
  return label
 }
 
 async function classify(data){
-    let in_dim = 4; // i r v p
+    let in_dim = 3; // i r v p
     
     data = normalized(data);
     shape = [1, in_dim];
@@ -37,7 +37,7 @@ async function classify(data){
 
     try{
         // path load in public access => github
-        const path = 'https://raw.githubusercontent.com/Islahuddin41420110058/botjstclassification/main/public/cls_model/model.json';
+        const path = 'https://raw.githubusercontent.com/Islahuddin41420110058/TA_ISLAHUDDIN/main/public/cls_model/model%20(1).json';
         const model = await tf.loadGraphModel(path);
         
         predict = model.predict(
