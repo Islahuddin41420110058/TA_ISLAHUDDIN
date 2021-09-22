@@ -1,6 +1,6 @@
 const tf = require('@tensorflow/tfjs-node');
 
-function normalized(data){ // i & r
+function normalized(data){ // s & k
     s = (data[0] - 29.5) / 4.609959082
     k = (data[1] - 422.2222222) / 195.11212
  
