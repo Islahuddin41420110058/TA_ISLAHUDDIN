@@ -2,12 +2,11 @@ var express = require('express');
 var r = express.Router();
 
 // load pre-trained model
-const model = require('./sdk/model.js'); // predict
 const model_cls = require('./sdk/cls_model.js'); // cls
 
 // Bot Setting
 const TelegramBot = require('node-telegram-bot-api');
-const token = '1690624762:AAFJaZMMeavwhW4QRDILdiwz0dHLID0GL78'
+const token = '2023612436:AAEmK7CTNAM8zv3JsvEkjxV0BbUZKiumDdA'
 const bot = new TelegramBot(token, {polling: true});
 
 state = 0;
@@ -44,14 +43,6 @@ bot.on('message', (msg) => {
             cls_model.classify([parseFloat(s[0]), parseFloat(jres1[0], parseFloat(jres[0]), parseFloat(jres1[1]))].then((jres2)=>{
                 bot.sendMessage(
                     msg.chat.id,
-                    `nilai v yang diprediksi adalah ${jres1[0]} volt`
-                );
-                bot.sendMessage(
-                    msg.chat.id,
-                    `nilai p yang diprediksi adalah ${jres1[1]} watt`
-                );
-                bot.sendMessage(
-                    msg.chat.id,
                     `Klasifikasi Tegangan ${jres2}`
                 );
                 state = 0;
@@ -70,8 +61,8 @@ bot.on('message', (msg) => {
 r.get('/prediction/:i/:r', function(req, res, next) {    
     model.predict(
         [
-            parseFloat(req.params.i), // string to float
-            parseFloat(req.params.r)
+            parseFloat(req.params.s), // string to float
+            parseFloat(req.params.k)
         ]   
     ).then((jres)=>{
         res.json(jres);
@@ -82,14 +73,14 @@ r.get('/prediction/:i/:r', function(req, res, next) {
 r.get('/classify/:i/:r', function(req, res, next) {    
     model.predict(
         [
-            parseFloat(req.params.i), // string to float
-            parseFloat(req.params.r)
+            parseFloat(req.params.s), // string to float
+            parseFloat(req.params.k)
         ]   
     ).then((jres)=>{
         cls_model.classify(
             [
-                parseFloat(req.params.i), // string to float
-                parseFloat(req.params.r),
+                parseFloat(req.params.s), // string to float
+                parseFloat(req.params.k),
                 parseFloat(jres[0]),
                 parseFloat(jres[1])
             ]  
