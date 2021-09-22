@@ -11,11 +11,6 @@ const argFact = (compareFn) => (array) => array.map((el, idx) => [el, idx]). red
 const argMax = argFact((min, el) => (el[0] > min[0] ? el : min ))
 
 function ArgMax(res){
-  label = "NORMAL"
-    cls_data = []
-    for(i=0; i<res.length; i++){
-        cls_data[i] = res[i]
-    }
     console.log(cls_data, argMax(cls_data));
     
   if(argMax(cls_data) == 1){
