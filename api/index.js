@@ -24,7 +24,7 @@ bot.onText(/\/start/, (msg) => {
 bot.onText(/\/menu/, (msg) => { 
     bot.sendMessage(
         msg.chat.id,
-        `masukan nilai i|v contohnya 9|9`
+        `masukan nilai s|k contohnya 27|300`
     );   
     state = 1;
 });
