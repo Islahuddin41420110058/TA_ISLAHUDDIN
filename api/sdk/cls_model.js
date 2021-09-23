@@ -12,20 +12,18 @@ const argFact = (compareFn) => (array) => array.map((el, idx) => [el, idx]). red
 const argMax = argFact((min, el) => (el[0] > min[0] ? el : min ))
 
 function ArgMax(res){
-     label = "NORMAL"
+    label = "POWER OFF"
     cls_data = []
     for(i=0; i<res.length; i++){
         cls_data[i] = res[i]
     }
     console.log(cls_data, argMax(cls_data));
-    
-  if(argMax(cls_data) == 1){
+    if(argMax(cls_data) == 1){
       label = "POWER ON"
-  }if(argMax(cls_data) == 0){
-      label = "POWER OFF"
-  }
- return label
+    }
+    return label
 }
+    
 
 async function classify(data){
     let in_dim = 3; // i r v p
