@@ -31,7 +31,7 @@ bot.onText(/\/predict/, (msg) => {
 
 bot.on('message', (msg) => {
     if(state == 1){
-        s = msg.text.split("|");
+        i = msg.text.split("|");
         model.predict(
             [
                 parseFloat(s[0]), // string to float
@@ -40,18 +40,15 @@ bot.on('message', (msg) => {
         ).then((jres1)=>{
           console.log(jres1);
             
-            cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(jres1[0]), parseFloat(jres1[1])]).then((jres2)=>{
+            cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(jres1[0][1])]).then((jres2)=>{
              bot.sendMessage(
                 msg.chat.id,
-                `nilai s yang diprediksi adalah ${jres1[0]} volt `
+                `Keadaan pompa yang diprediksi adalah ${jres1[0][1]}`
             ); 
+            
             bot.sendMessage(
                 msg.chat.id,
-                `nilai k yang diprediksi adalah ${jres1[1]} watt `    
-            );
-            bot.sendMessage(
-                msg.chat.id,
-                `Klasifikasi Tegangan ${jres2}`
+                `Klasifikasi keadaan pompa ${jres2}`
             ); 
             state = 0;
           })
@@ -77,25 +74,5 @@ r.get('/classify/:s/:k', function(req, res, next) {
    })
 });
 
-// routers
-r.get('/classify/:s/:k', function(req, res, next) {    
-   model.predict(
-        [
-            parseFloat(req.params.s), // string to float
-            parseFloat(req.params.k)   
-        ]     
- ).then((jres)=>{
-    cls_model.classify(
-        [
-            parseFloat(req.params.s), // string to float
-            parseFloat(req.params.k),
-            parseFloat(jres[0]),
-            parseFloat(jres[1])
-        ]
-    ).then((jres_)=>{
-        res.json({jres, jres_})
-    })
-  })
-});
 
 module.exports = r;
