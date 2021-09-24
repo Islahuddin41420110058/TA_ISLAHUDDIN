@@ -70,6 +70,17 @@ r.get('/classify/:s/:k', function(req, res, next) {
         ]     
  ).then((jres)=>{
        res.json(jres);
+       cls_model.classify(
+           [
+                parseFloat(req.params.s), // string to float
+                parseFloat(req.params.k),
+                parseFloat(jres[0][1])
+           ]
+           
+       ).then((jres_)=>{
+           res.json(jres_)
+       
+       })
    })
 });
 
