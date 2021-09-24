@@ -1,11 +1,11 @@
 const tf = require('@tensorflow/tfjs-node');
 
 function normalized(data){ // s & k
-    s = (data[0])
-    k = (data[1])
-    o = (data[2])
+    suhu = (data[0])
+    kelembaban = (data[1])
+    keluaran = (data[2])
     
-    return [s, k, o]
+    return [suhu, kelembaban, keluaran]
 }
 
 const argFact = (compareFn) => (array) => array.map((el, idx) => [el, idx]). reduce(compareFn)[1]
