@@ -39,6 +39,7 @@ bot.on('message', (msg) => {
             ]
         ).then((jres1)=>{
           console.log(jres1);
+            
             cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(jres1[0])]).then((jres2)=>{
             bot.sendMessage(
                 msg.chat.id,
@@ -49,10 +50,15 @@ bot.on('message', (msg) => {
                 msg.chat.id,
                 `Klasifikasi keadaan pompa ${jres2}`
             ); 
+            state = 0;
           })
        })
     }else{
-        state = 0;
+        bot.sendMessage(
+                msg.chat.id,
+            `Please Click /start`
+            );
+            state = 0;
     }
 })
 
@@ -63,8 +69,8 @@ r.get('/classify/:suhu/:kelembaban', function(req, res, next) {
             parseFloat(req.params.suhu), // string to float
             parseFloat(req.params.kelembaban)   
         ]     
- ).then((jres)=>{
-       res.json(jres);
+   ).then((jres)=>{
+        res.json(jres);
    })
 });
 
@@ -82,8 +88,8 @@ r.get('/classify/:suhu/:kelembaban', function(req, res, next) {
                 parseFloat(req.params.kelembaban),
                 parseFloat(jres[0])
            ]   
-        ).then((jres)=>{
-           res.json(jres_)
+        ).then((jres_)=>{
+           res.json({jres, jres_})
        })
    })
 });
