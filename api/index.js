@@ -32,30 +32,14 @@ bot.onText(/\/classify/, (msg) => {
 bot.on('message', (msg) => {
     if(state == 1){
         s = msg.text.split("|");
-        suhu = parseFloat(s[0])
-        kelembaban = parseFloat(s[1])
-        
         cls_model.classify(
-            [
-                suhu,
-                kelembaban
+    
+            cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(s[2])]).then((jres1)=>{
             
-            ]
-            ).then((jres1)=>{
-               keluaran = parseFloat(jres1[0])
-               cls_model.classify([suhu, kelembaban,keluaran]).then((jres2)=>{
-                    bot.sendMessage(
-                         msg.chat.id,
-                        `Keadaan pompa yang diprediksi adalah ${jres1[0]}`
-                    ); 
-            
-                     bot.sendMessage(
-                         msg.chat.id,
-                           `Klasifikasi keadaan pompa ${jres2}`
-              );  
-           })
-       })
-            
+            bot.sendMessage(
+                msg.chat.id,
+                `Klasifikasi keadaan pompa ${jres1}`
+            ); 
             state = 0;
           })
        })
@@ -67,18 +51,6 @@ bot.on('message', (msg) => {
             state = 0;
     }
 })
-
-// routers
-r.get('/classify/:suhu/:kelembaban', function(req, res, next) {    
-   cls_model.classify(
-        [
-            parseFloat(req.params.suhu), // string to float
-            parseFloat(req.params.kelembaban)   
-        ]     
-   ).then((jres)=>{
-        res.json(jres);
-   })
-});
 
 r.get('/classify/:suhu/:kelembaban', function(req, res, next) {    
    cls_model.classify(
@@ -92,7 +64,7 @@ r.get('/classify/:suhu/:kelembaban', function(req, res, next) {
            [
                 parseFloat(req.params.suhu), // string to float
                 parseFloat(req.params.kelembaban),
-                parseFloat(jres[0])
+                parseFloat(jres1[1])
            ]   
         ).then((jres_)=>{
            res.json({jres, jres_})
