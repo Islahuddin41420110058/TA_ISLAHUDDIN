@@ -32,24 +32,30 @@ bot.onText(/\/classify/, (msg) => {
 bot.on('message', (msg) => {
     if(state == 1){
         s = msg.text.split("|");
+        suhu = parseFloat(s[0])
+        kelembaban = parseFloat(s[1])
+        
         cls_model.classify(
             [
-                parseFloat(s[0]), // string to float
-                parseFloat(s[1])
+                suhu,
+                kelembaban
+            
             ]
-        ).then((jres1)=>{
-          console.log(jres1);
+            ).then((jres1)=>{
+               keluaran = parseFloat(jres1[0])
+               cls_model.classify([suhu, kelembaban,keluaran]).then((jres2)=>{
+                    bot.sendMessage(
+                         msg.chat.id,
+                        `Keadaan pompa yang diprediksi adalah ${jres1[0]}`
+                    ); 
             
-            cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(jres1[0])]).then((jres2)=>{
-            bot.sendMessage(
-                msg.chat.id,
-                `Keadaan pompa yang diprediksi adalah ${jres1[0]}`
-            ); 
+                     bot.sendMessage(
+                         msg.chat.id,
+                           `Klasifikasi keadaan pompa ${jres2}`
+              );  
+           })
+       })
             
-            bot.sendMessage(
-                msg.chat.id,
-                `Klasifikasi keadaan pompa ${jres2}`
-            ); 
             state = 0;
           })
        })
