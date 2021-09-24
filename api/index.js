@@ -31,7 +31,7 @@ bot.onText(/\/classify/, (msg) => {
 
 bot.on('message', (msg) => {
     if(state == 1){
-        i = msg.text.split("|");
+        s = msg.text.split("|");
         cls_model.classify(
             [
                 parseFloat(s[0]), // string to float
