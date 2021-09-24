@@ -62,18 +62,18 @@ bot.on('message', (msg) => {
 })
 
 // routers
-r.get('/classify/:s/:k', function(req, res, next) {    
+r.get('/classify/:suhu/:kelembaban', function(req, res, next) {    
    cls_model.classify(
         [
-            parseFloat(req.params.s), // string to float
-            parseFloat(req.params.k)   
+            parseFloat(req.params.suhu), // string to float
+            parseFloat(req.params.kelembaban)   
         ]     
  ).then((jres)=>{
        res.json(jres);
        cls_model.classify(
            [
-                parseFloat(req.params.s), // string to float
-                parseFloat(req.params.k),
+                parseFloat(req.params.suhu), // string to float
+                parseFloat(req.params.kelembaban),
                 parseFloat(jres[0])
            ]
            
