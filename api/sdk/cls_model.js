@@ -1,6 +1,6 @@
 const tf = require('@tensorflow/tfjs-node');
 
-function (data){ 
+function(data){ 
     suhu = (data[0])
     kelembaban = (data[1])
     penyiraman = (data[2])
