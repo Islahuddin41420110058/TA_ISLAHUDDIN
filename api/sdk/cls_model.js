@@ -1,9 +1,9 @@
 const tf = require('@tensorflow/tfjs-node');
 
-function normalized(data){ // s & k
+function normalized(data){ 
     suhu = (data[0])
     kelembaban = (data[1])
-    keluaran = (data[2])
+    penyiraman = (data[2])
     
     return [suhu, kelembaban, keluaran]
 }
@@ -12,21 +12,21 @@ const argFact = (compareFn) => (array) => array.map((el, idx) => [el, idx]). red
 const argMax = argFact((min, el) => (el[0] > min[0] ? el : min ))
 
 function ArgMax(res){
-    label = "POWER OFF"
+    label = "POMPA OFF"
     cls_data = []
     for(i=0; i<res.length; i++){
         cls_data[i] = res[i]
     }
     console.log(cls_data, argMax(cls_data));
     if(argMax(cls_data) == 1){
-      label = "POWER ON"
+      label = "POMPA ON"
     }
     return label
 }
     
 
 async function classify(data){
-    let in_dim = 3; // i r v p
+    let in_dim = 3; // 
     
     data = normalized(data);
     shape = [1, in_dim];
