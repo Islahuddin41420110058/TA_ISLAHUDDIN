@@ -24,7 +24,7 @@ bot.onText(/\/start/, (msg) => {
 bot.onText(/\/classify/, (msg) => { 
     bot.sendMessage(
         msg.chat.id,
-        `masukan nilai s|k contohnya 30|700`
+        `masukan nilai suhu|kelembaban contohnya 30|700`
     );   
     state = 1;
 });
