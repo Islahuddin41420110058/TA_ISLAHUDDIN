@@ -42,7 +42,7 @@ bot.on('message', (msg) => {
             cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(jres1[0])]).then((jres2)=>{
             bot.sendMessage(
                 msg.chat.id,
-                `Keadaan pompa yang diprediksi adalah ${jres1[1]}`
+                `Keadaan pompa yang diprediksi adalah ${jres1[0]}`
             ); 
             
             bot.sendMessage(
@@ -85,7 +85,7 @@ r.get('/classify/:suhu/:kelembaban', function(req, res, next) {
            [
                 parseFloat(req.params.suhu), // string to float
                 parseFloat(req.params.kelembaban),
-                parseFloat(jres[1])
+                parseFloat(jres[0])
            ]   
         ).then((jres_)=>{
            res.json({jres, jres_})
