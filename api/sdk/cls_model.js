@@ -1,11 +1,11 @@
 const tf = require('@tensorflow/tfjs-node');
 
-function normalized(data){ 
+function (data){ 
     suhu = (data[0])
     kelembaban = (data[1])
     penyiraman = (data[2])
     
-    return [suhu, kelembaban, keluaran]
+    return [suhu, kelembaban, penyiraman]
 }
 
 const argFact = (compareFn) => (array) => array.map((el, idx) => [el, idx]). reduce(compareFn)[1]
@@ -28,7 +28,7 @@ function ArgMax(res){
 async function classify(data){
     let in_dim = 3; // 
     
-    data = normalized(data);
+    data = (data);
     shape = [1, in_dim];
 
     tf_data = tf.tensor2d(data, shape);
