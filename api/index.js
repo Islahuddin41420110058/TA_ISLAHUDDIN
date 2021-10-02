@@ -35,7 +35,7 @@ bot.on('message', (msg) => {
         cls_model.classify(
             [
                 parseFloat(s[0]), // string to float
-                parseFloat(s[1]),
+                parseFloat(s[1])
             ]
         ).then((jres1)=>{
           console.log(jres1);
@@ -66,7 +66,7 @@ r.get('/classify/:suhu/:kelembaban', function(req, res, next) {
    cls_model.classify(
         [
             parseFloat(req.params.suhu), // string to float
-            parseFloat(req.params.kelembaban),
+            parseFloat(req.params.kelembaban)
         ]     
    ).then((jres)=>{
         res.json(jres);
