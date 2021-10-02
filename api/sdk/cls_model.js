@@ -1,6 +1,6 @@
 const tf = require('@tensorflow/tfjs-node');
 
-function(data){ 
+function normalized(data){ 
     suhu = (data[0])
     kelembaban = (data[1])
     penyiraman = (data[2])
@@ -28,7 +28,7 @@ function ArgMax(res){
 async function classify(data){
     let in_dim = 3; // 
     
-    data = (data);
+    data = normalized(data);
     shape = [1, in_dim];
 
     tf_data = tf.tensor2d(data, shape);
