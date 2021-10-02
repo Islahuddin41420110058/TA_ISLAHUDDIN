@@ -36,11 +36,10 @@ bot.on('message', (msg) => {
             [
                 parseFloat(s[0]), // string to float
                 parseFloat(s[1]),
-                parseFloat(s[2])
             ]
         ).then((jres1)=>{
           console.log(jres1);
-            cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(s[2]), parseFloat(jres1[0])]).then((jres2)=>{
+            cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(jres1[0])]).then((jres2)=>{
             bot.sendMessage(
                 msg.chat.id,
                 `Keadaan pompa yang diprediksi adalah ${jres1[1]}`
@@ -68,7 +67,6 @@ r.get('/classify/:suhu/:kelembaban', function(req, res, next) {
         [
             parseFloat(req.params.suhu), // string to float
             parseFloat(req.params.kelembaban),
-            parseFloat(req.params.penyiraman)
         ]     
    ).then((jres)=>{
         res.json(jres);
@@ -79,8 +77,7 @@ r.get('/classify/:suhu/:kelembaban', function(req, res, next) {
    cls_model.classify(
            [
                 parseFloat(req.params.suhu), // string to float
-                parseFloat(req.params.kelembaban),
-                parseFloat(req.params.penyiraman)
+                parseFloat(req.params.kelembaban)
            ]
            
    ).then((jres)=>{
@@ -88,7 +85,6 @@ r.get('/classify/:suhu/:kelembaban', function(req, res, next) {
            [
                 parseFloat(req.params.suhu), // string to float
                 parseFloat(req.params.kelembaban),
-                parseFloat(req.params.penyiraman),
                 parseFloat(jres[1])
            ]   
         ).then((jres_)=>{
